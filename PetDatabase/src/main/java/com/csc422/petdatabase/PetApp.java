@@ -30,13 +30,13 @@ public class PetApp {
         
         do{
             System.out.println("What would you like to do?\n" +
-                "\t1) View all pets\n" +
-                "\t2) Add more pets\n" +
-                "\t3) Update an existing pet\n" +
-                "\t4) Remove an existing pet\n" +
-                "\t5) Search pets by name\n" +
-                "\t6) Search pets by age\n" +
-                "\t7) Exit program "
+                "   1) View all pets\n" +
+                "   2) Add more pets\n" +
+                "   3) Update an existing pet\n" +
+                "   4) Remove an existing pet\n" +
+                "   5) Search pets by name\n" +
+                "   6) Search pets by age\n" +
+                "   7) Exit program "
             );
             
             
@@ -48,46 +48,59 @@ public class PetApp {
                     //print all pets
                     db.print();
                     break;
+                    
                 case "2": 
                     // add more pets
                     addPets();
                     break;
+                    
                 case "3": 
                     // update existing pet
                     //TODO: update pet
                     break;
+                    
                 case "4": 
                     // remove existing pet
                     //TODO: remove pet
                     break;
+                    
                 case "5": 
                     // search pet by name
-                    //TODO: search by name
+                    System.out.print("\nEnter a name to search: ");
+                    String name = input.nextLine();
+                    db.searchName(name);
                     break;
+                    
                 case "6": 
                     // search pet by age
-                    //TODO: search by age
+                    System.out.print("\nEnter age to search: ");
+                    try{
+                        int age = Integer.parseInt(input.nextLine());
+                        db.searchAge(age);
+                    }catch(NumberFormatException e){
+                        System.out.println("Invalid input. Expected an integer");
+                    }
                     break;
+                    
                 case "7": 
                     //exit program
+                    System.out.println("\nGoodbye!");
                     break;
-                default:
-                    System.out.println("Invalid input.");
                     
+                default:
+                    System.out.println("Invalid input.");       
             }
-            
-            
-            
+   
         }while(!choice.equals("7"));
- 
-        //exited program
-        System.out.println("\nGoodbye!");
-        
+  
     }//end of main
 
-
+    
+    /**
+     * Allows the user to keep adding pets to the database until they type 'done'
+     */
     private static void addPets(){
-        int currentIndex = db.size(); //tracks the starting index
+        int currentIndex = db.size(); //tracks the starting index in the database
         int totalPetsAdded; 
         
         String choice;
@@ -98,6 +111,7 @@ public class PetApp {
             choice = input.nextLine();
             
             try{
+                // add the entered pet to the database
                 if(!choice.equalsIgnoreCase("done")){
                     String[] petData = choice.split(" ");
                     db.add(new Pet(petData[0], Integer.parseInt(petData[1])));
@@ -112,8 +126,8 @@ public class PetApp {
   
         }while(!choice.equalsIgnoreCase("done"));
         
+        // print out the number of new pets that were added to the database
         totalPetsAdded = db.size() - currentIndex;
- 
         System.out.println(totalPetsAdded + " pets added.");
         System.out.println();
     }

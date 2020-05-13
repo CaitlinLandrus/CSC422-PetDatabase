@@ -25,50 +25,134 @@ public class Database {
         db = new LinkedList<>();
     }
     
-    public void add(Pet p){
-        
+    /**
+     * adds the pet to the database
+     * 
+     * @param p is a Pet object
+     */
+    public void add(Pet p){ 
         //add the pet to the array
         db.add(p);
     }
     
+    /**
+     * 
+     * @return the size of the database
+     */
     public int size(){
         return db.size();
     }
     
-    public void print(){
-        /*
-            +----------------------+
-            | ID | NAME | AGE | 
-            +----------------------+
-            | 0 | Kitty | 8 |
-            | 1 | Bruno | 7 |
-            | 2 | Boomer | 8 | 
-            | 3 | Boomer | 3 |
-            | 4 | Fiesty | 3 |
-            +----------------------+
-            5 rows in set. 
-        */
-        String hr = "+-----------------------+";
-        
+    
+    static String hr = "+-----------------------+";
+    
+    /**
+     * prints the header of the table
+     */
+    private void  printHeader(){
         System.out.println();
         System.out.println(hr);
         //header
         System.out.printf("|%3s | %-10s |%4s |\n", "ID","NAME", "AGE");
         System.out.println(hr);
         
-        //body
-        int currentIndex = 0;
-        for(Pet pet : db){ 
-            System.out.printf("|%3d | %-10s |%4d |\n", currentIndex, pet.getName(), pet.getAge());
-            currentIndex++;
-            
-        }
-        
+    }
+    
+    /**
+     * prints the body of the table
+     * @param number the number of items that were in the table
+     */
+    private void printFooter(int number){
         System.out.println(hr);
-        
-        //footer
-        System.out.println(db.size() + " rows in set.");    
+        System.out.println(number + " rows in set.");    
         System.out.println();
     }
-       
+    
+    /**
+     * prints the individual row data for the pet
+     * 
+     * @param index integer value in the database
+     * @param name of the pet
+     * @param age of the pet
+     */
+    private void printRow(int index,String name, int age){
+         System.out.printf("|%3d | %-10s |%4d |\n", index, name, age);
+    }
+    
+    
+    /**
+     * Prints the entire database
+     */
+    public void print(){
+        /*
+            +----------------------+
+            | ID | NAME      | AGE | 
+            +----------------------+
+            | 0 | Kitty      |   8 |
+            | 1 | Bruno      |   7 |
+            | 2 | Boomer     |   8 | 
+            | 3 | Boomer     |   3 |
+            | 4 | Fiesty     |   3 |
+            +----------------------+
+            5 rows in set. 
+        */
+        printHeader();
+        
+        //print body
+        int currentIndex = 0;
+        for(Pet pet : db){ 
+            printRow(currentIndex, pet.getName(), pet.getAge());
+            currentIndex++;  
+        }
+        
+        printFooter(size());
+    }
+    
+    
+    /**
+     * prints out all pets with the input name
+     * 
+     * @param name is a string 
+     */
+    public void searchName(String name){
+        int currentIndex = 0;
+        int found = 0;
+        
+        printHeader();
+        
+        //print body if there is a match
+        for(Pet pet : db){ 
+            if(pet.getName().equalsIgnoreCase(name)){
+                printRow(currentIndex, pet.getName(), pet.getAge());
+                found++;
+            }
+            currentIndex++;  
+        }
+        
+        printFooter(found); 
+    }
+    
+    
+    /**
+     * prints out the all pets with the input age
+     * 
+     * @param age is in an integer value
+     */
+    public void searchAge(int age){
+        int currentIndex = 0;
+        int found = 0;
+        
+        printHeader();
+                       
+        //print body if there is a match
+        for(Pet pet : db){ 
+            if(pet.getAge()== age){
+                 printRow(currentIndex, pet.getName(), pet.getAge());
+                 found++;
+            }
+            currentIndex++;  
+        }
+        printFooter(found);   
+    }
+     
 }
