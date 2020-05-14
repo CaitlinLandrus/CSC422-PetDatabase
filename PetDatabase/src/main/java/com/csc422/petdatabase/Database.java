@@ -43,6 +43,20 @@ public class Database {
         return db.size();
     }
     
+    /**
+     * 
+     * @param index of the pet in the list
+     * @return the Pet at given index
+     */
+    public Pet get(int index){
+       return db.get(index);
+    }
+    
+    public Pet remove(int index){
+        return db.remove(index);
+    }
+
+    
     
     static String hr = "+-----------------------+";
     
@@ -114,7 +128,7 @@ public class Database {
      * 
      * @param name is a string 
      */
-    public void searchName(String name){
+    public void search(String name){
         int currentIndex = 0;
         int found = 0;
         
@@ -138,7 +152,7 @@ public class Database {
      * 
      * @param age is in an integer value
      */
-    public void searchAge(int age){
+    public void search(int age){
         int currentIndex = 0;
         int found = 0;
         
