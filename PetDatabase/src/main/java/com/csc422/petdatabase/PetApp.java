@@ -37,7 +37,7 @@ public class PetApp {
     /**
      * Runs the application until the user chooses to exit
      */
-    public void start(){
+    private void start(){
         String choice;
         System.out.println("Pet database program.\n");
         
