@@ -10,9 +10,10 @@ package com.csc422.petdatabase;
  * @author caitlin landrus
  */
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Database {
+public class Database implements Iterable<Pet>{
     /* 
         Using LinkedList because the user can choose to remove any pet from the database, 
         and the LinkedList will be more efficient than ArrayList to do this.
@@ -23,6 +24,10 @@ public class Database {
 
     public Database(){
         db = new LinkedList<>();
+    }
+    
+    public Database(LinkedList<Pet> fileList){
+        db = fileList;
     }
     
     /**
@@ -167,6 +172,15 @@ public class Database {
             currentIndex++;  
         }
         printFooter(found);   
+    }
+    
+    /**
+     * Implementing Linked List iterator for saving the database to a file
+     * @return 
+     */
+    @Override
+    public Iterator<Pet> iterator(){
+        return  db.iterator();
     }
      
 }

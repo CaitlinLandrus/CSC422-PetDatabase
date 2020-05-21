@@ -5,11 +5,13 @@
  */
 package com.csc422.petdatabase;
 
+import java.io.Serializable;
+
 /**
  *
  * @author caitlin landrus
  */
-public class Pet {
+public class Pet implements Serializable{
 
     private String name = "";
     private int age = 0;
